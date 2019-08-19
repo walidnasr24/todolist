@@ -1,49 +1,53 @@
 import React from 'react';
-import Infos from './input';
-import Button from './button';
+import { BrowserRouter,Link,Route} from "react-router-dom";
+import Khalil from './khalil';
+import Amal from './amal';
 import './App.css';
+import NavbarPage from './navbar';
+import Carousel from './carousel';
+import Spinner from './spinner';
+import Card from './card';
+import image1 from './im.jpg';
+import image2 from './image2.jpg';
+import image3 from './img.jpg';
+
 
 
 class App extends React.Component {
-state={
-  todo:[] ,
-val:"",
-
-}
 
   render(){
+    const tab=[
+{src:image1, title:"tofeha",subtitle:"tofeha1",infos:"aasal"},
+{src:image2, title:"khoukha",subtitle:"khoukha1",infos:"bnina"},
+{src:image3, title:"mouza",subtitle:"mouza1",infos:"safra"}
+];
+
  return (
+   <BrowserRouter>
     <div className="App">
-      <Infos value={this.state.val} onChange={(event)=>{this.setState({val: event.target.value })
-    console.log(this.state.val)}} />
-      <Button onClick={()=>{
-        const newlist=[this.state.val];
-       this.setState({todo: this.state.todo.concat(newlist)})
-
-      }}
-         children="add" />
-         
-
-
-        
-
-    <ul>
+      <NavbarPage/>
+    <Spinner/>
     
-    {this.state.todo.map((e,i)=><div>    
     
-    <li>{e}</li><Button onClick={()=>{
-     var a=this.state.todo
-     a.splice(i,1);
-      this.setState({todo:a})}} 
-    children="delete"/></div>
-    )} 
-    
-    </ul>
+   <Route path="/" exact component={Amal}/>   
+   <Route path="/Khalil" exact component={Khalil}/>
+   <Route path="/Carousel" exact component={Carousel}/>              
+   <Link to="Khalil" >khalil</Link>
+    {tab.map(e=>
+     <Card 
+    src={e.src}
+    title= {e.title} 
+    subtitle= {e.subtitle}
+    infos={e.infos}/> 
+    )}
+ 
 </div>
+</BrowserRouter>
   );
 
-  }
+  
  
+ }
 }
 
 export default App;
